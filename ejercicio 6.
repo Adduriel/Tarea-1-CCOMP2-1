@@ -1,0 +1,65 @@
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+
+//MARELA MENDOZA SUEROS CCOMP 2-1
+
+void espacio_persona(int espacio){ //COn esta funcion podemos asignar espacios, esta es una
+	for(int i=0; i < espacio;i++){ // funcion que es mas para arreglar nuestras escaleras
+		cout<<" ";
+	}
+}
+	
+void escaleraDoble(int npeldanhos, int persona){ //Con esta funcion comenzamos a formar la escalera
+	int espacio=4, espacio_largo;
+	while(npeldanhos > 0){ 
+		espacio_largo=8*(npeldanhos-1)+5;
+		if(persona==npeldanhos){ //Esto es para posicionar a la persona en el lado positivo
+			cout<<"|_P_";
+			espacio_persona(espacio_largo);
+			cout<<"___|";			
+		}if(persona==-(npeldanhos)){ // aqui es en el lado negativo
+			cout<<"|___";
+			espacio_persona(espacio_largo);
+			cout<<"_P_|";			
+		}if(persona!=npeldanhos&&persona!=-(npeldanhos)){  // cuando la persona esta en un escalon distinto
+			cout<<"|___";
+			espacio_persona(espacio_largo);
+			cout<<"___|";
+		}
+		npeldanhos--;
+		cout<<"\n";
+		espacio_persona(espacio);
+		espacio+=4;
+	}
+	if(persona==0){ //por ultimo, cuando P esta en el punto 0, osea la base de nuestra escalera.
+		cout<<"|_P_|";
+	}else{         // aqui es cuando P no esta en el punto 0
+		cout<<"|___|";
+	}
+	
+}
+	
+int main(int argc, char *argv[]) { // aqui usamos punteros para poder animar el recorrido de la persona.
+	int escalones,animacion,escalon;
+	cout<<"Escalones: ";cin>>escalones;
+	cout<<"numero de bucles: ";cin>>animacion;
+	cout<<"lugar de comienzo: ";cin>>escalon; 
+	system("cls"); // con esto borraremos la pantalla
+	while(animacion>0){ // bucle que nos ayuda para ver cuando la animacion sea mayor a 0, osea cuando sea negativo se detendrá la animacion.
+		for(int i=escalon ; i >= -(escalones); i--){ // Con esto, nosotros avanzamos en la escalera negativa mediante "fotogramas"
+			escaleraDoble(escalones,i);
+			cout<<"\n";
+			system("pause"); 
+			system("cls"); 
+		}
+		for(int i=(-escalones)+1 ; i <= escalones; i++){ //con esto volvemos al lado positivo de la escalera.
+			escaleraDoble(escalones,i);
+			cout<<"\n";
+			system("pause");
+			system("cls");
+		}
+		animacion--; // Digamos que ponemos 3 veces, con esto nosotros lo volvemos 2, 1 y cuando llegue a 0 automaticamente se borrara.
+	}
+	return 0;
+}
